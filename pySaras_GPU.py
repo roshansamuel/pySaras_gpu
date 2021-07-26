@@ -34,7 +34,7 @@ Lx, Ly, Lz = 1.0, 1.0, 1.0
 
 # Size index: 0 1 2 3  4  5  6  7   8   9   10   11   12   13    14
 # Grid sizes: 1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384
-gn = 8
+gn = 7
 sInd = np.array([gn, gn, gn])
 
 #######################################
@@ -45,7 +45,7 @@ time = 0    #give restart time if restarting
 
 dt = 0.01
 
-tMax = 0.01
+tMax = 0.03
 
 Cn = 1.0 #Courant number
 

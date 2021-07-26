@@ -11,16 +11,16 @@ import scipy.integrate as integrate
 
 
 #### Flow Parameters #############
-Ra = 5e4
+Ra = 1e5
 
-Pr = 7  #0.786 #0.71
+Pr = 0.786  #0.786 #0.71
 
-Ta = 1e5
+Ta = 0e0
 
 print()
 print("#", "Ra=%.1e" %Ra, "Pr=%.3f" %Pr, "Ta=%.1e" %Ta)
 
-print("Ro =", np.sqrt(Ra/(Ta*Pr)))
+if Ta>0: print("Ro =", np.sqrt(Ra/(Ta*Pr)))
 
 nu, kappa = np.sqrt(Pr/Ra), 1.0/np.sqrt(Ra*Pr)
 
@@ -34,7 +34,7 @@ Lx, Ly, Lz = 1.0, 1.0, 1.0
 
 # Size index: 0 1 2 3  4  5  6  7   8   9   10   11   12   13    14
 # Grid sizes: 1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384
-gn = 5
+gn = 7
 sInd = np.array([gn, gn, gn])
 
 #######################################
@@ -43,9 +43,9 @@ sInd = np.array([gn, gn, gn])
 #########Simulation Parameters #########################
 time = 0    #give restart time if restarting
 
-dt = 0.02
+dt = 0.01
 
-tMax = 1000
+tMax = 0.03
 
 Cn = 1.0 #Courant number
 
@@ -944,7 +944,7 @@ while True:
         omegaz = (V[2:, 1:-1, 1:-1]-V[0:-2, 1:-1, 1:-1])/(2.0*hx) - (U[1:-1, 2:, 1:-1]-U[1:-1, 0:-2, 1:-1])/(2.0*hy)
         omegaz3 = integrate.simps(integrate.simps(integrate.simps(omegaz**3.0, x[1:-1]), y[1:-1]), z[1:-1])
         omegaz2 = integrate.simps(integrate.simps(integrate.simps(omegaz**2.0, x[1:-1]), y[1:-1]), z[1:-1])
-        Sw = omegaz3/omegaz2**1.5
+        #Sw = omegaz3/omegaz2**1.5
 
         wT = W[1:-1, 1:-1, 1:-1]*T[1:-1, 1:-1, 1:-1]
         wTInt = integrate.simps(integrate.simps(integrate.simps(wT, x[1:-1]), y[1:-1]), z[1:-1])
@@ -961,8 +961,8 @@ while True:
         f.close()
 
         if iCnt == 1:
-            print('# time \t\t Re \t\t Nu \t\t Divergence \t dt \t\t Sw')
-        print("%f \t %.8f \t %.8f \t %.4e \t %f \t %.4e" %(time, Re, Nu, maxDiv, dt, Sw))
+            print('# time \t\t Re \t\t Nu \t\t Divergence \t dt')
+        print("%f \t %.8f \t %.8f \t %.4e \t %f" %(time, Re, Nu, maxDiv, dt))
    
 
     #Hx = computeNLinDiff_X(U, V, W)
