@@ -1,0 +1,7 @@
+*.gz
+*.swp
+*.swo
+*.out
+*.pyc
+*.log
+*.h5
